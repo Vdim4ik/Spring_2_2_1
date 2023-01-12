@@ -11,8 +11,12 @@ import java.util.List;
 @Repository
 public class CarDaoImp implements CarDao{
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public CarDaoImp(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void add(Car car) {
@@ -20,7 +24,7 @@ public class CarDaoImp implements CarDao{
     }
 
     @Override
-    public List<Car> listCars() {
+    public List<Car> getListCars() {
         TypedQuery<Car> query=sessionFactory.getCurrentSession().createQuery("from Car");
         return query.getResultList();
     }
